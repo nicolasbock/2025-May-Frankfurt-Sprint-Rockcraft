@@ -1,6 +1,6 @@
 .PHONY: build-dockerfile
 build-dockerfile:
-	docker build . --tag vsftd:dockerfile
+	docker build . --tag vsftpd:dockerfile
 
 .PHONY: run
 run:
@@ -13,4 +13,4 @@ run:
 		--publish 20-21:20-21/tcp \
 		--publish 40000-40009:40000-40009/tcp \
 		--volume /data:/home/user \
-		garethflowers/ftp-server
+		vsftpd:dockerfile

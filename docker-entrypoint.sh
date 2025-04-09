@@ -1,4 +1,5 @@
-#!/bin/sh
+#!/bin/bash
+
 FTP_DATA=/home/$FTP_USER
 FTP_GROUP=$( getent group "$GID" | awk -F ':' '{print $1}' )
 

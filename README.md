@@ -1,1 +1,1 @@
-# 2025-May-Frankfurt-Sprint-Rockcraft
+# 2025 May: Frankfurt Engineering Sprint Rockcraft
