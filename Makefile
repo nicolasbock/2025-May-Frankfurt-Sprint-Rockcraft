@@ -2,8 +2,8 @@
 build-dockerfile:
 	docker build . --tag vsftpd:dockerfile
 
-.PHONY: run
-run: build-dockerfile
+.PHONY: run-dockerfile
+run-dockerfile: build-dockerfile
 	docker run \
 		--detach \
 		--env FTP_PASS=123 \
@@ -14,3 +14,11 @@ run: build-dockerfile
 		--publish 40000-40009:40000-40009/tcp \
 		--volume /data:/home/user \
 		vsftpd:dockerfile
+
+.PHONY: stop-dockerfile
+stop-dockerfile:
+	docker stop vsftpd-server
+
+.PHONY: remove-dockerfile
+remove-dockerfile: stop-dockerfile
+	docker rm vsftpd-server
