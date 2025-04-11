@@ -1,19 +1,23 @@
-FROM ubuntu:noble
-
-ENV FTP_USER=foo
-ENV	FTP_PASS=bar
-ENV	GID=1000
-ENV	UID=1000
-ENV	PUBLIC_IP=0.0.0.0
+FROM ubuntu:24.04 AS build
 
 RUN apt-get update
-RUN apt-get install --no-install-recommends --yes vsftpd
+RUN apt-get install --yes --no-install-recommends python3-venv python3-build python3-pip
 
-COPY [ "vsftpd.conf", "/etc" ]
-COPY [ "docker-entrypoint.sh", "/" ]
+COPY . /app
+WORKDIR /app
 
-ENTRYPOINT [ "/docker-entrypoint.sh" ]
-CMD [ "/usr/sbin/vsftpd" ]
+RUN python3 -m venv /venv
+RUN /venv/bin/pip install --upgrade pip
+RUN /venv/bin/pip install .
 
-EXPOSE 20/tcp 21/tcp 40000-40009/tcp
-HEALTHCHECK CMD netstat -lnt | grep :21 || exit 1
+FROM ubuntu:22.04
+
+RUN apt-get update
+RUN apt-get install --yes --no-install-recommends python3-venv
+
+COPY --from=build /venv /venv
+
+ENV PATH="/venv/bin:$PATH"
+ENV PYTHONPATH="/venv/lib/python3.12/site-packages"
+
+CMD ["hello-world"]

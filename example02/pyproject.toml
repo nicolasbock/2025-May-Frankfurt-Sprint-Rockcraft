@@ -1,0 +1,11 @@
+[build-system]
+requires = ["setuptools >= 77.0.3"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "example02"
+version = "0.1.0"
+description = "A basic Python example."
+
+[project.scripts]
+hello-world = "helloworld:main.main"

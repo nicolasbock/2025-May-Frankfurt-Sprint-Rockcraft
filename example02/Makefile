@@ -1,24 +1,15 @@
-.PHONY: build-dockerfile
-build-dockerfile:
-	docker build . --tag vsftpd:dockerfile
+repository = 2025-may-frankfurt-engineering-sprint
+path = example02
 
-.PHONY: run-dockerfile
-run-dockerfile: build-dockerfile
-	docker run \
-		--detach \
-		--env FTP_PASS=123 \
-		--env FTP_USER=user \
-		--env PUBLIC_IP=192.168.0.1 \
-		--name vsftpd-server \
-		--publish 20-21:20-21/tcp \
-		--publish 40000-40009:40000-40009/tcp \
-		--volume /data:/home/user \
-		vsftpd:dockerfile
+build-docker:
+	docker build --tag $(repository)/$(path):docker .
 
-.PHONY: stop-dockerfile
-stop-dockerfile:
-	docker stop vsftpd-server
+run-docker: build-docker
+	docker run --rm $(repository)/$(path):docker
 
-.PHONY: remove-dockerfile
-remove-dockerfile: stop-dockerfile
-	docker rm vsftpd-server
+build-rock:
+	rockcraft pack
+	sudo rockcraft.skopeo --insecure-policy copy oci-archive:$(path)_latest_amd64.rock docker-daemon:$(repository)/$(path):rock
+
+run-rock: build-rock
+	docker run --rm $(repository)/$(path):rock exec hello-world
