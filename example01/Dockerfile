@@ -1,3 +1,9 @@
+FROM golang AS build
+
+COPY . /app
+WORKDIR /app
+RUN go build -o hello-world main.go
+
 FROM scratch
-COPY hello-world /hello-world
+COPY --from=build /app/hello-world /hello-world
 CMD ["/hello-world"]

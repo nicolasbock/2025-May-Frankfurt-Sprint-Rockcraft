@@ -2,7 +2,6 @@ repository = 2025-may-frankfurt-engineering-sprint
 path = example01
 
 build-docker:
-	go build -o hello-world main.go
 	docker build --tag $(repository)/$(path):docker .
 
 run-docker: build-docker
