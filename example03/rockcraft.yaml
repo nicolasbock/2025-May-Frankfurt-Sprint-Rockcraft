@@ -1,0 +1,16 @@
+name: example03
+summary: Hello World Python
+description: A basic Python example
+version: "latest"
+license: Apache-2.0
+
+base: ubuntu@24.04
+platforms:
+    amd64:
+
+parts:
+    hello:
+        plugin: python
+        source: .
+        stage-packages:
+           - python3-venv

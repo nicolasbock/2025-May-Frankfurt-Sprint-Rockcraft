@@ -7,9 +7,15 @@ build-docker:
 run-docker: build-docker
 	docker run --rm $(docker_tag)
 
+export-docker: build-docker
+	ID=$$(docker create $(docker_tag)); docker export -o $(path).docker.tar.gz $$ID; docker rm $$ID
+
 build-rock:
 	rockcraft pack
-	sudo rockcraft.skopeo --insecure-policy copy oci-archive:$(path)_latest_amd64.rock docker-daemon:$(rock_tag)
+	rockcraft.skopeo --insecure-policy copy oci-archive:$(path)_latest_amd64.rock docker-daemon:$(rock_tag)
 
 run-rock: build-rock
 	docker run --rm $(rock_tag) exec hello-world
+
+export-rock: build-rock
+	ID=$$(docker create $(rock_tag)); docker export -o $(path).rock.tar.gz $$ID; docker rm $$ID
