@@ -15,7 +15,7 @@ build-rock:
 	rockcraft.skopeo --insecure-policy copy oci-archive:$(path)_latest_amd64.rock docker-daemon:$(rock_tag)
 
 run-rock: build-rock
-	docker run --rm $(rock_tag) exec hello-world
+	docker run --rm $(rock_tag)
 
 export-rock: build-rock
 	ID=$$(docker create $(rock_tag)); docker export -o $(path).rock.tar.gz $$ID; docker rm $$ID
