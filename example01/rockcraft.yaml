@@ -1,6 +1,6 @@
 name: example01
 summary: Hello World
-description: The most basic example of a rock.
+description: A basic Go example
 version: "latest"
 license: Apache-2.0
 

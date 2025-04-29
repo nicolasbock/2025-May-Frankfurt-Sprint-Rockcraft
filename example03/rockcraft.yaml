@@ -12,9 +12,12 @@ services:
     api-server:
         override: replace
         command: /bin/api-server
+        on-success: shutdown
+        on-failure: shutdown
+        startup: enabled
 
 parts:
-    hello:
+    api-server:
         plugin: python
         source: .
         stage-packages:

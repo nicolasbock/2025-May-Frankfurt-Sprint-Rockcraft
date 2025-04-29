@@ -9,3 +9,6 @@ run-docker: build-docker
 	docker kill $(path)-docker
 
 run-rock: build-rock
+	docker run --detach --name $(path)-rock --rm --publish 2080:2080 $(rock_tag)
+	while ! curl localhost:2080; do sleep 1; done
+	docker kill $(path)-rock
