@@ -5,7 +5,7 @@ build-docker:
 	docker build --tag $(docker_tag) .
 
 run-docker: build-docker
-	docker run --rm $(docker_tag)
+	docker run --rm --name $(path)-docker $(docker_tag)
 
 export-docker: build-docker
 	ID=$$(docker create $(docker_tag)); docker export -o $(path).docker.tar.gz $$ID; docker rm $$ID
@@ -15,7 +15,7 @@ build-rock:
 	rockcraft.skopeo --insecure-policy copy oci-archive:$(path)_latest_amd64.rock docker-daemon:$(rock_tag)
 
 run-rock: build-rock
-	docker run --rm $(rock_tag)
+	docker run --rm --name $(path)-rock $(rock_tag)
 
 export-rock: build-rock
 	ID=$$(docker create $(rock_tag)); docker export -o $(path).rock.tar.gz $$ID; docker rm $$ID
