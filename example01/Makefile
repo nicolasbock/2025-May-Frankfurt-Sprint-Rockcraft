@@ -4,4 +4,4 @@ path = example01
 include ../common.mk
 
 run-rock: build-rock
-	docker run --rm $(rock_tag) --name $(path)-rock exec hello-world
+	docker run --rm --name $(path)-rock $(rock_tag) exec hello-world
