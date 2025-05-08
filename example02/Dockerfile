@@ -10,7 +10,7 @@ RUN python3 -m venv /venv
 RUN /venv/bin/pip install --upgrade pip
 RUN /venv/bin/pip install .
 
-FROM ubuntu:22.04
+FROM ubuntu:24.04
 
 RUN apt-get update
 RUN apt-get install --yes --no-install-recommends python3-venv

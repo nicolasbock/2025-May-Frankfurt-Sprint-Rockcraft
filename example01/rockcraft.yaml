@@ -10,7 +10,7 @@ platforms:
     amd64:
 
 parts:
-    hello:
+    hello-world:
         plugin: go
         source: .
         build-snaps:

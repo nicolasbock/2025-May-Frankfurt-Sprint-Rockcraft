@@ -9,7 +9,7 @@ platforms:
     amd64:
 
 parts:
-    hello:
+    hello-world:
         plugin: python
         source: .
         stage-packages:
