@@ -12,5 +12,6 @@ run-docker: build-docker
 run-rock: build-rock
 	docker run --detach --rm --name $(path)-rock $(rock_tag)
 	sleep 1
-	docker exec --interactive --tty $(path)-rock pebble logs
+	docker logs $(path)-rock
+	docker exec $(path)-rock pebble logs
 	docker kill $(path)-rock

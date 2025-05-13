@@ -13,11 +13,11 @@ RUN /venv/bin/pip install .
 FROM ubuntu:24.04
 
 RUN apt-get update
-RUN apt-get install --yes --no-install-recommends python3-venv
+RUN apt-get install --yes --no-install-recommends python3
 
 COPY --from=build /venv /venv
 
 ENV PATH="/venv/bin:$PATH"
 ENV PYTHONPATH="/venv/lib/python3.12/site-packages"
 
-CMD ["hello-world"]
+ENTRYPOINT ["hello-world"]
